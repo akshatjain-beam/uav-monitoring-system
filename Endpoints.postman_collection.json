@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "5670ab6b-1da4-404a-a7f4-52b52612c26e",
+		"name": "Endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "13031965"
+	},
+	"item": [
+		{
+			"name": "Drone Endpoints",
+			"item": [
+				{
+					"name": "Add Drone",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Drone ZXC\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:5000/api/drones"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Drones list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:5000/api/drones"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Drone",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://127.0.0.1:5000/api/drones/7"
+					},
+					"response": []
+				}
+			],
+			"description": "# Sanity health check route\n\nGET - '/api/health'\n\n```\n \"\"\"\nHealth check endpoint to verify the status of the service.\nReturns:\n    A JSON response indicating the health status of the service.\n    Status code 200 (OK) if the service is operational.\n\"\"\"\n\n ```\n\n# Routes for Drone endpoint\n\nGET - '/api/drones'\n\n```\n\"\"\"\nRetrieve a list of all drones available in the database.\nReturns:\n    A JSON response containing a list of drones, each with its ID and name.\n    Status code 404 (Not Found) if no drones are available.\n    Status code 500 (Internal Server Error) if an unexpected error occurs.\n\"\"\"\n\n ```\n\nPOST - 'api/drones'\n\n```\n\"\"\"\nAdd a new drone to the database.\nRequest JSON format:\n    {\n        \"name\": \"Drone Name\"\n    }\nReturns:\n    A JSON response indicating the success or failure of the operation.\n    Status code 201 (Created) if the drone is added successfully.\n    Status code 400 (Bad Request) if required parameters are missing.\n    Status code 500 (Internal Server Error) if an unexpected error occurs.\n\"\"\"\n\n ```\n\nDELETE - 'api/drones/drone_id'\n\n```\n\"\"\"\nDelete a drone from the database by its ID.\nArgs:\n    drone_id: The ID of the drone to be deleted.\nReturns:\n    A JSON response indicating the success or failure of the operation.\n    Status code 200 (OK) if the drone is deleted successfully.\n    Status code 404 (Not Found) if the drone does not exist.\n    Status code 500 (Internal Server Error) if an unexpected error occurs.\n\"\"\"\n\n ```\n\n# Routes for Task endpoint\n\nPOST - 'api/tasks'\n\n```\n\"\"\"\nCreate a new task and associate it with a drone.\nRequest JSON format:\n    {\n        \"name\": \"Task Name\",\n        \"description\": \"Task Description\",\n        \"drone_id\": 1  # ID of the associated drone\n    }\nReturns:\n    A JSON response indicating the success or failure of the operation.\n    Status code 201 (Created) if the task is created successfully.\n    Status code 400 (Bad Request) if required parameters are missing.\n    Status code 404 (Not Found) if the associated drone does not exist.\n    Status code 500 (Internal Server Error) if an unexpected error occurs.\n\"\"\"\n\n ```\n\nGET - '/api/tasks'\n\n```\n\"\"\"\nRetrieve a list of all tasks with their associated drones.\nReturns:\n    A JSON response containing a list of tasks, each with its details and associated drone.\n    Status code 404 (Not Found) if no tasks are available.\n    Status code 500 (Internal Server Error) if an unexpected error occurs.\n\"\"\"\n\n ```\n\nGET - 'api/tasks/task_id'\n\n```\n\"\"\"\nRetrieve a task by its ID along with details of its associated drone.\nArgs:\n    task_id: The ID of the task to retrieve.\nReturns:\n    A JSON response containing the details of the specified task and its associated drone.\n    Status code 404 (Not Found) if the task does not exist.\n    Status code 500 (Internal Server Error) if an unexpected error occurs.\n\"\"\"\n\n ```\n\nPOST - 'api/task_id/execute'\n\n```\n\"\"\"\nExecute a task by generating 5 random noisy images and associating them with the task.\nArgs:\n    task_id: The ID of the task to execute.\nReturns:\n    A JSON response indicating the success or failure of the operation.\n    If successful, returns a message indicating the task execution along with the generated image URLs.\n    Status code 200 (OK) if the task is executed successfully.\n    Status code 404 (Not Found) if the task does not exist.\n    Status code 500 (Internal Server Error) if an unexpected error occurs.\n\"\"\"\n\n ```\n\nDELETE - 'api/tasks/task_id'\n\n```\n\"\"\"\nDelete a task from the database by its ID.\nArgs:\n    task_id: The ID of the task to be deleted.\nReturns:\n    A JSON response indicating the success or failure of the operation.\n    Status code 200 (OK) if the task is deleted successfully.\n    Status code 404 (Not Found) if the task does not exist.\n    Status code 500 (Internal Server Error) if an unexpected error occurs.\n\"\"\"\n\n ```\n\nPUT - 'api/tasks/task_id'\n\n```\n\"\"\"\nUpdate the details of a task in the database.\nArgs:\n    task_id: The ID of the task to be updated.\nRequest JSON format:\n    {\n        \"name\": \"Updated Task Name\",\n        \"description\": \"Updated Task Description\",\n        \"drone_id\": 1  # Updated ID of the associated drone\n    }\nReturns:\n    A JSON response indicating the success or failure of the operation.\n    Status code 200 (OK) if the task is updated successfully.\n    Status code 404 (Not Found) if the task does not exist.\n    Status code 500 (Internal Server Error) if an unexpected error occurs.\n\"\"\"\n\n ```\n\nGET - 'api/tasks/task_id/images'\n\n```\n\"\"\"\nRetrieve a list of images associated with a task.\nArgs:\n    task_id: The ID of the task to retrieve images for.\nReturns:\n    A JSON response containing a list of image URLs associated with the specified task.\n    Status code 404 (Not Found) if no images are found for the task.\n    Status code 500 (Internal Server Error) if an unexpected error occurs.\n\"\"\"\n\n ```\n\n# Routes for Images endpoint\n\nGET - 'api/images/image_id'\n\n```\n\"\"\"\nRetrieve an image by its ID.\nArgs:\n    image_id: The ID of the image to retrieve.\nReturns:\n    A JSON response containing the URL of the specified image.\n    Status code 404 (Not Found) if the image does not exist.\n    Status code 500 (Internal Server Error) if an unexpected error occurs.\n\"\"\"\n\n ```\n\nDELETE - 'api/images/image_id'\n\n```\n\"\"\"\nDelete an image by its ID.\nArgs:\n    image_id: The ID of the image to delete.\nReturns:\n    A JSON response indicating the success or failure of the operation.\n    Status code 200 (OK) if the image is deleted successfully.\n    Status code 404 (Not Found) if the image does not exist.\n    Status code 500 (Internal Server Error) if an unexpected error occurs.\n\"\"\"\n\n ```"
+		},
+		{
+			"name": "Task Endpoints",
+			"item": [
+				{
+					"name": "Add Task",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Test 1\",\n    \"drone_id\": 1,\n    \"description\": \"Testing api call\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:5000/api/tasks"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Task by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:5000/api/tasks/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Task",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://127.0.0.1:5000/api/tasks/4"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Task",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Task Name\",\n    \"drone_id\": 2,\n    \"description\": \"Updated Task Description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://127.0.0.1:5000/api/tasks/3"
+					},
+					"response": []
+				},
+				{
+					"name": "Execute Task",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://127.0.0.1:5000/api/tasks/3/execute"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Task Images by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:5000/api/tasks/3/images"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Tasks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:5000/api/tasks"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Image by Id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://127.0.0.1:5000/api/images/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "Health check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:5000/api/health"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Images Endpoints",
+			"item": [
+				{
+					"name": "Get Image by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://127.0.0.1:5000/api/images/1"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
